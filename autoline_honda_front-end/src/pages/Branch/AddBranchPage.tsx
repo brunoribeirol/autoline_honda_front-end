@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createBranch } from "../services/BranchService";
+import { createBranch } from "../../services/BranchService";
 import { useNavigate } from "react-router-dom";
 
 const AddBranchPage: React.FC = () => {
@@ -16,9 +16,9 @@ const AddBranchPage: React.FC = () => {
     if (!cnpj) {
       return "O campo CNPJ é obrigatório.";
     }
-    const regex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/; // Format: 00.000.000/0000-00
+    const regex = /^\d{14}$/; // O CNPJ precisa ter 14 dígitos numéricos sem formatação
     if (!regex.test(cnpj)) {
-      return "Por favor, insira um CNPJ válido.";
+      return "Por favor, insira um CNPJ válido (apenas números).";
     }
     return null;
   };
@@ -46,7 +46,9 @@ const AddBranchPage: React.FC = () => {
     e.preventDefault();
 
     if (validateForm()) {
-      const branch = { cnpj, name };
+      const cleanedCnpj = removeCNPJFormat(cnpj); // Remover a formatação do CNPJ
+      const branch = { cnpj: cleanedCnpj, name };
+
       createBranch(branch)
         .then((response) => {
           console.log("Concessionária criada com sucesso:", response.data);
@@ -56,6 +58,10 @@ const AddBranchPage: React.FC = () => {
           console.error("Erro ao criar a concessionária:", error);
         });
     }
+  };
+
+  const removeCNPJFormat = (cnpj: string) => {
+    return cnpj.replace(/[^\d]+/g, ""); // Remove qualquer coisa que não seja número
   };
 
   return (

@@ -2,8 +2,9 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HeaderComponent from "./components/Header/Header";
 import FooterComponent from "./components/Footer/Footer";
-import BranchListPage from "./pages/BranchListPage";
-import AddBranchPage from "./pages/AddBranchPage";
+import Home from "./pages/Home/Home";
+import BranchListPage from "./pages/Branch/BranchListPage";
+import AddBranchPage from "./pages/Branch/AddBranchPage";
 
 // Layout que envolve o Header e Footer comuns
 const Layout = () => (
@@ -11,7 +12,7 @@ const Layout = () => (
     <HeaderComponent />
     <main className="container">
       <Routes>
-        <Route path="/" element={<BranchListPage />} />
+        <Route path="/" element={<Home />} /> {/* Home Page */}
         <Route path="/branches" element={<BranchListPage />} />
         <Route path="/add-branch" element={<AddBranchPage />} />
       </Routes>

@@ -9,3 +9,5 @@ export const listBranches = () =>
 // Criar uma nova concessionária
 export const createBranch = (branch: { cnpj: string; name: string }) =>
   axios.post(REST_API_BASE_URL, branch).catch((error) => console.error(error));
+
+
