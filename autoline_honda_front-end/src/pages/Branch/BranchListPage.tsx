@@ -10,7 +10,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button, IconButton, Stack, Typography } from "@mui/material";
-import { Delete, Visibility, Edit } from "@mui/icons-material";
+import { Delete, Visibility, Edit, AddCircle } from "@mui/icons-material";
 
 type Branch = {
   cnpj: string;
@@ -56,13 +56,22 @@ const BranchListPage: React.FC = () => {
 
   return (
     <div>
-      <h2 className="text-center">Concessionárias</h2>
-      <button
-        className="btn btn-secondary"
-        onClick={() => navigate("/add-branch")}
-      >
-        Adicionar Concessionária
-      </button>
+      <h2 className="text-center" style={{ margin: "15px" }}>Concessionárias</h2>
+        <Stack direction="row" >
+        <Button
+          variant="contained"
+          startIcon={<AddCircle />}
+          onClick={() => navigate("/add-branch")}
+          size="large"
+          sx={{ "&:hover": {
+            scale: 1.1,
+            boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
+          }, 
+          transition: "0.25s"}}
+        >
+          Adicionar
+        </Button>
+      </Stack>
       <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>

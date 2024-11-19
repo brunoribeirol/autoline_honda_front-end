@@ -1,6 +1,5 @@
 import React from "react";
 import Table from '@mui/material/Table';
-import "./Footer.css";
 import { Box, Container, Typography } from "@mui/material";
 
 const FooterComponent: React.FC = () => {
