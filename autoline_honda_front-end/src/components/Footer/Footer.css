@@ -1,21 +1,12 @@
-footer.footer {
+footer {
     background-color: #004aad;
     color: white;
     text-align: center;
     padding: 15px 0;
     font-size: 14px;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
-    position: relative;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
   }
   
-
-
-
-
-  /* .footer {
-    background-color: #f1f1f1;
-    padding: 20px;
-    text-align: center;
-    border-top: 1px solid #ddd;
-  }
-   */

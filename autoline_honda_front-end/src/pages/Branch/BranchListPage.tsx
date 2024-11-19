@@ -2,6 +2,16 @@ import React, { useEffect, useState } from "react";
 import { deleteBranch, getBranches } from "../../services/BranchService"; // Rename import for clarity
 import { useNavigate } from "react-router-dom";
 
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import { Button, IconButton, Stack, Typography } from "@mui/material";
+import { Delete, Visibility, Edit } from "@mui/icons-material";
+
 type Branch = {
   cnpj: string;
   name: string;
@@ -43,7 +53,6 @@ const BranchListPage: React.FC = () => {
         console.error("Error deleting branch:", error);
       });
   }
-  
 
   return (
     <div>
@@ -54,7 +63,64 @@ const BranchListPage: React.FC = () => {
       >
         Adicionar Concessionária
       </button>
-      <table className="table table-striped table-bordered border-dark">
+      <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell variant="head"> <Typography variant="body1" style={{ fontWeight: "bold" }}>CNPJ</Typography> </TableCell>
+            <TableCell variant="head" align="left"> <Typography variant="body1" style={{ fontWeight: "bold" }}>NOME</Typography> </TableCell>
+            <TableCell variant="head" align="right"> <Typography variant="body1" style={{ fontWeight: "bold" }}>AÇÔES</Typography> </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {branches.map((branch) => (
+            <TableRow
+              key={branch.cnpj}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {branch.cnpj}
+              </TableCell>
+              <TableCell align="left">{branch.name}</TableCell>
+              <TableCell align="right">
+                <Stack direction="row" justifyContent="right" spacing={8}>
+                  <Stack direction="row" spacing={2}>
+                    <Button
+                    variant="outlined"
+                    startIcon={<Edit />}
+                    onClick={() => {
+                      console.log("Navigating to edit page with CNPJ:", branch.cnpj); // Debug log
+                      navigate(`/edit-branch/${branch.cnpj}`);
+                      }}
+                    >
+                      Editar
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="error"
+                      startIcon={<Delete />}
+                      onClick={() => removeBranch(branch.cnpj)} // Call the renamed function
+                    >
+                      Apagar
+                    </Button>
+                  </Stack>
+                  <IconButton 
+                    aria-label="delete" 
+                    onClick={() => {
+                      console.log("Navigating to view page with CNPJ:", branch.cnpj); // Debug log
+                      navigate(`/view-branch/${branch.cnpj}`);
+                      }}
+                    >
+                    <Visibility/>
+                  </IconButton>
+                </Stack>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+      {/* <table className="table table-striped table-bordered border-dark">
         <thead>
           <tr>
             <th>CNPJ</th>
@@ -95,7 +161,7 @@ const BranchListPage: React.FC = () => {
             </tr>
           )}
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 };

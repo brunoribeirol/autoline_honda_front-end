@@ -18,7 +18,7 @@ const AddBranchPage: React.FC = () => {
     }
     const regex = /^\d{14}$/; // O CNPJ precisa ter 14 dígitos numéricos sem formatação
     if (!regex.test(cnpj)) {
-      return "Por favor, insira um CNPJ válido (apenas números).";
+      return "Por favor, insira um CNPJ válido (14 números).";
     }
     return null;
   };
