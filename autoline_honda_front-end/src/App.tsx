@@ -5,6 +5,8 @@ import FooterComponent from "./components/Footer/Footer";
 import Home from "./pages/Home/Home";
 import BranchListPage from "./pages/Branch/BranchListPage";
 import AddBranchPage from "./pages/Branch/AddBranchPage";
+import EditBranchPage from "./pages/Branch/EditBranchPage";
+// import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 // Layout que envolve o Header e Footer comuns
 const Layout = () => (
@@ -15,7 +17,7 @@ const Layout = () => (
         <Route path="/" element={<Home />} /> {/* Home Page */}
         <Route path="/branches" element={<BranchListPage />} />
         <Route path="/add-branch" element={<AddBranchPage />} />
-        <Route path="/edit-branch/:cnpj" element={<BranchListPage />} />
+        <Route path="/edit-branch/:cnpj" element={<EditBranchPage />} />
       </Routes>
     </main>
     <FooterComponent />

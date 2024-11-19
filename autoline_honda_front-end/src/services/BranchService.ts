@@ -8,15 +8,25 @@ export const createBranch = (branch: { cnpj: string; name: string }) =>
 export const getBranches = () =>
   axios.get(REST_API_BASE_URL).catch((error) => console.error(error));
 
-export const getBranch = (branch: { cnpj: string }) =>
+export const getBranch = (cnpj: string) =>
   axios
-    .get(`${REST_API_BASE_URL}/${branch.cnpj}`)
+    .get(`${REST_API_BASE_URL}/${cnpj}`) // Correctly use cnpj directly in the URL
     .catch((error) => console.error(error));
 
-export const updateBranch = (branch: { cnpj: string; name: string }) =>
-  axios
-    .put(`${REST_API_BASE_URL}/${branch.cnpj}`, branch)
-    .catch((error) => console.error(error));
+
+// export const updateBranch = (branch: { cnpj: string; name: string }) =>
+//   axios
+//     .put(`${REST_API_BASE_URL}/${branch.cnpj}`, branch)
+//     .catch((error) => console.error(error));
+
+    export const updateBranch = (cnpj: string, updatedData: { name: string }) => {
+      console.log("Sending PUT request to:", `${REST_API_BASE_URL}/${cnpj}`);
+      console.log("Payload:", updatedData);
+      return axios
+        .put(`${REST_API_BASE_URL}/${cnpj}`, updatedData) // Correctly send cnpj in the URL and updated data in the body
+        .catch((error) => console.error("Error updating branch:", error));
+    };
+    
 
 export const deleteBranch = (cnpj: string) =>
   axios

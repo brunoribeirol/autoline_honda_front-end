@@ -25,11 +25,11 @@ const BranchListPage: React.FC = () => {
       });
   }
 
-  function updateBranch(cnpj: string) {
-    // Placeholder for edit functionality
-    console.log(`Editing branch with CNPJ: ${cnpj}`);
-    navigate(`/edit-branch/${cnpj}`); // Navigate to the edit page
-  }
+  // function updateBranch(cnpj: string) {
+  //   // Placeholder for edit functionality
+  //   console.log(`Editing branch with CNPJ: ${cnpj}`);
+  //   navigate(`/edit-branch/${cnpj}`); // Navigate to the edit page
+  // }
 
   function removeBranch(cnpj: string) {
     console.log("Deleting branch with CNPJ:", cnpj);
@@ -70,8 +70,11 @@ const BranchListPage: React.FC = () => {
                 <td>{branch.name}</td>
                 <td>
                   <button
-                    className="btn btn-info"
-                    onClick={() => updateBranch(branch.cnpj)}
+                  className="btn btn-info"
+                  onClick={() => {
+                    console.log("Navigating to edit page with CNPJ:", branch.cnpj); // Debug log
+                    navigate(`/edit-branch/${branch.cnpj}`);
+                    }}
                   >
                     Editar
                   </button>
