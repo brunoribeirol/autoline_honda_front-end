@@ -129,48 +129,6 @@ const BranchListPage: React.FC = () => {
         </TableBody>
       </Table>
     </TableContainer>
-      {/* <table className="table table-striped table-bordered border-dark">
-        <thead>
-          <tr>
-            <th>CNPJ</th>
-            <th>Nome</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {branches.length > 0 ? (
-            branches.map((branch) => (
-              <tr key={branch.cnpj}>
-                <td>{branch.cnpj}</td>
-                <td>{branch.name}</td>
-                <td>
-                  <button
-                  className="btn btn-info"
-                  onClick={() => {
-                    console.log("Navigating to edit page with CNPJ:", branch.cnpj); // Debug log
-                    navigate(`/edit-branch/${branch.cnpj}`);
-                    }}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => removeBranch(branch.cnpj)} // Call the renamed function
-                  >
-                    Apagar
-                  </button>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan={3} className="text-center">
-                Nenhuma concessionária encontrada
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table> */}
     </div>
   );
 };
