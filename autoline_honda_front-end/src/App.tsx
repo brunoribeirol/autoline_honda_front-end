@@ -15,6 +15,7 @@ const Layout = () => (
         <Route path="/" element={<Home />} /> {/* Home Page */}
         <Route path="/branches" element={<BranchListPage />} />
         <Route path="/add-branch" element={<AddBranchPage />} />
+        <Route path="/edit-branch/:cnpj" element={<BranchListPage />} />
       </Routes>
     </main>
     <FooterComponent />

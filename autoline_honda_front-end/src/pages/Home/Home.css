@@ -1,0 +1,73 @@
+/* Estilo do botão para abrir o menu */
+.sidebar-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: #222;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+/* Estilo do menu lateral */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px; /* Escondido por padrão */
+  width: 250px;
+  height: 100%;
+  background-color: #333;
+  color: white;
+  transition: left 0.3s ease-in-out;
+  z-index: 999;
+  padding: 20px 10px;
+}
+
+/* Quando o menu está aberto */
+.sidebar.open {
+  left: 0;
+}
+
+/* Botão para fechar o menu */
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+/* Itens do menu */
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  margin: 15px 0;
+  padding: 10px;
+  cursor: pointer;
+  color: white;
+  transition: background 0.3s;
+}
+
+.sidebar-menu li:hover {
+  background-color: #555;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .sidebar-toggle {
+    left: 10px;
+  }
+}

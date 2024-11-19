@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { listBranches } from "../../services/BranchService";
+import { deleteBranch, getBranches } from "../../services/BranchService"; // Rename import for clarity
 import { useNavigate } from "react-router-dom";
 
 type Branch = {
@@ -8,27 +8,50 @@ type Branch = {
 };
 
 const BranchListPage: React.FC = () => {
-  const [branches, setBranches] = useState<Branch[]>([]); // Ensure initial state is an empty array
+  const [branches, setBranches] = useState<Branch[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    listBranches()
+    getAllBranches();
+  }, []);
+
+  function getAllBranches() {
+    getBranches()
       .then((response) => {
-        if (Array.isArray(response.data)) {
-          setBranches(response.data);
-        } else {
-          console.error("Expected an array but got:", response.data);
-        }
+        setBranches(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching branches:", error);
+        console.error(error);
       });
-  }, []);
+  }
+
+  function updateBranch(cnpj: string) {
+    // Placeholder for edit functionality
+    console.log(`Editing branch with CNPJ: ${cnpj}`);
+    navigate(`/edit-branch/${cnpj}`); // Navigate to the edit page
+  }
+
+  function removeBranch(cnpj: string) {
+    console.log("Deleting branch with CNPJ:", cnpj);
+  
+    deleteBranch(cnpj)
+      .then(() => {
+        console.log(`Branch with CNPJ ${cnpj} deleted successfully.`);
+        getAllBranches(); 
+      })
+      .catch((error) => {
+        console.error("Error deleting branch:", error);
+      });
+  }
+  
 
   return (
     <div>
       <h2 className="text-center">Concessionárias</h2>
-      <button className="btn btn-secondary mx-2" onClick={() => navigate("/add-branch")}>
+      <button
+        className="btn btn-secondary"
+        onClick={() => navigate("/add-branch")}
+      >
         Adicionar Concessionária
       </button>
       <table className="table table-striped table-bordered border-dark">
@@ -36,6 +59,7 @@ const BranchListPage: React.FC = () => {
           <tr>
             <th>CNPJ</th>
             <th>Nome</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -44,11 +68,27 @@ const BranchListPage: React.FC = () => {
               <tr key={branch.cnpj}>
                 <td>{branch.cnpj}</td>
                 <td>{branch.name}</td>
+                <td>
+                  <button
+                    className="btn btn-info"
+                    onClick={() => updateBranch(branch.cnpj)}
+                  >
+                    Editar
+                  </button>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => removeBranch(branch.cnpj)} // Call the renamed function
+                  >
+                    Apagar
+                  </button>
+                </td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan={2}>Nenhuma concessionária encontrada</td>
+              <td colSpan={3} className="text-center">
+                Nenhuma concessionária encontrada
+              </td>
             </tr>
           )}
         </tbody>

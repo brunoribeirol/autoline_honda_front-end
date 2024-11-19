@@ -73,7 +73,7 @@ const AddBranchPage: React.FC = () => {
           <input
             type="text"
             id="cnpj"
-            placeholder="00.000.000/0000-00"
+            placeholder="00000000000000"
             value={cnpj}
             onChange={(e) => setCnpj(e.target.value)}
             className={`form-control ${errors.cnpj ? "is-invalid" : ""}`}
