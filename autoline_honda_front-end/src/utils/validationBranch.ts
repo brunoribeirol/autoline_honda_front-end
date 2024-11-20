@@ -20,18 +20,6 @@ export const validateZipCode = (zipCode: string) => {
   return null;
 };
 
-export const validateState = (state: string) => {
-  if (!state) {
-    return "O campo 'Estado' é obrigatório.";
-  }
-  const regex = /^[A-Za-z]{2}$/;
-  if (!regex.test(state)) {
-    return "Por favor, insira um Estado válido (ex: SP).";
-  }
-  return null;
-};
-
-// Função de validação do formulário
 export const validateForm = (
   cnpj: string,
   name: string,
@@ -61,7 +49,7 @@ export const validateForm = (
   }
 
   if (!name.trim()) {
-    errorsCopy.name = "O nome é obrigatório.";
+    errorsCopy.name = "O campo 'Nome' é obrigatório.";
     valid = false;
   }
 
@@ -72,28 +60,27 @@ export const validateForm = (
   }
 
   if (!street.trim()) {
-    errorsCopy.street = "A rua é um campo obrigatório.";
+    errorsCopy.street = "O campo 'Rua' é obrigatório.";
     valid = false;
   }
 
   if (!addressNumber.trim()) {
-    errorsCopy.addressNumber = "O número é um campo obrigatório.";
+    errorsCopy.addressNumber = "O campo 'Número' é obrigatório.";
     valid = false;
   }
 
   if (!neighborhood.trim()) {
-    errorsCopy.neighborhood = "O bairro é um campo obrigatório.";
+    errorsCopy.neighborhood = "O campo 'Bairro' é obrigatório.";
     valid = false;
   }
 
   if (!city.trim()) {
-    errorsCopy.city = "A cidade é um campo obrigatório.";
+    errorsCopy.city = "O campo 'Cidade' é obrigatório.";
     valid = false;
   }
 
-  const stateCodeError = validateState(state);
-  if (stateCodeError) {
-    errorsCopy.state = stateCodeError;
+  if (!state.trim()) {
+    errorsCopy.state = "O campo 'Estado' é obrigatório.";
     valid = false;
   }
 

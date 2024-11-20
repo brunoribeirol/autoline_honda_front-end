@@ -1,9 +1,18 @@
 import React, { useState } from "react";
-import { createBranch } from "../../services/BranchService";
+import { createBranch } from "../../services/Branch";
 import { useNavigate } from "react-router-dom";
-import { validateCNPJ, validateZipCode, validateState } from "../../utils/validationBranch";
+// import {
+//   validateCNPJ,
+//   validateZipCode,
+//   validateForm,
 
-const AddBranchPage: React.FC = () => {
+// } from "../../utils/validationBranch";
+
+import Button from "@mui/material/Button";
+import SendIcon from "@mui/icons-material/Send";
+import Stack from "@mui/material/Stack";
+
+const AddBranch: React.FC = () => {
   // Branch
   const [cnpj, setCnpj] = useState("");
   const [name, setName] = useState("");
@@ -26,7 +35,7 @@ const AddBranchPage: React.FC = () => {
     state: "",
   });
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const validateCNPJ = (cnpj: string) => {
     if (!cnpj) {
@@ -46,17 +55,6 @@ const AddBranchPage: React.FC = () => {
     const regex = /^\d{8}$/;
     if (!regex.test(zipCode)) {
       return "Por favor, insira um CEP válido (8 números).";
-    }
-    return null;
-  };
-
-  const validateState = (state: string) => {
-    if (!state) {
-      return "O campo 'Estado' é obrigatório.";
-    }
-    const regex = /^[A-Za-z]{2}$/;
-    if (!regex.test(state)) {
-      return "Por favor, insira um Estado válido (ex: SP).";
     }
     return null;
   };
@@ -111,9 +109,8 @@ const AddBranchPage: React.FC = () => {
       valid = false;
     }
 
-    const stateCodeError = validateState(state);
-    if (stateCodeError) {
-      errorsCopy.state = stateCodeError;
+    if (!state.trim()) {
+      errorsCopy.state = "O campo 'Estado' é obrigatório.";
       valid = false;
     }
 
@@ -141,6 +138,7 @@ const AddBranchPage: React.FC = () => {
         .then((response) => {
           if (response?.data) {
             console.log("Branch created successfully:", response.data);
+            navigate("/branches");
           }
         })
         .catch((error) => {
@@ -193,7 +191,7 @@ const AddBranchPage: React.FC = () => {
             onChange={(e) => setZipCode(e.target.value)}
             className={`form-control ${errors.zipCode ? "is-invalid" : ""}`}
           />
-          {errors.name && (
+          {errors.zipCode && (
             <div className="invalid-feedback">{errors.zipCode}</div>
           )}
         </div>
@@ -208,7 +206,7 @@ const AddBranchPage: React.FC = () => {
             onChange={(e) => setStreet(e.target.value)}
             className={`form-control ${errors.street ? "is-invalid" : ""}`}
           />
-          {errors.name && (
+          {errors.street && (
             <div className="invalid-feedback">{errors.street}</div>
           )}
         </div>
@@ -226,7 +224,7 @@ const AddBranchPage: React.FC = () => {
               errors.addressNumber ? "is-invalid" : ""
             }`}
           />
-          {errors.name && (
+          {errors.addressNumber && (
             <div className="invalid-feedback">{errors.addressNumber}</div>
           )}
         </div>
@@ -243,7 +241,7 @@ const AddBranchPage: React.FC = () => {
               errors.neighborhood ? "is-invalid" : ""
             }`}
           />
-          {errors.name && (
+          {errors.neighborhood && (
             <div className="invalid-feedback">{errors.neighborhood}</div>
           )}
         </div>
@@ -258,30 +256,71 @@ const AddBranchPage: React.FC = () => {
             onChange={(e) => setCity(e.target.value)}
             className={`form-control ${errors.city ? "is-invalid" : ""}`}
           />
-          {errors.name && <div className="invalid-feedback">{errors.city}</div>}
+          {errors.city && <div className="invalid-feedback">{errors.city}</div>}
         </div>
         {/* State */}
         <div className="form-group mb-3">
           <label htmlFor="state">Estado:</label>
-          <input
-            type="text"
+          <select
             id="state"
-            placeholder="Estado"
             value={state}
             onChange={(e) => setState(e.target.value)}
             className={`form-control ${errors.state ? "is-invalid" : ""}`}
-          />
-          {errors.name && (
+          >
+            <option value="">Selecione um estado</option>
+            <option value="AC">Acre (AC)</option>
+            <option value="AL">Alagoas (AL)</option>
+            <option value="AP">Amapá (AP)</option>
+            <option value="AM">Amazonas (AM)</option>
+            <option value="BA">Bahia (BA)</option>
+            <option value="CE">Ceará (CE)</option>
+            <option value="DF">Distrito Federal (DF)</option>
+            <option value="ES">Espírito Santo (ES)</option>
+            <option value="GO">Goiás (GO)</option>
+            <option value="MA">Maranhão (MA)</option>
+            <option value="MT">Mato Grosso (MT)</option>
+            <option value="MS">Mato Grosso do Sul (MS)</option>
+            <option value="MG">Minas Gerais (MG)</option>
+            <option value="PA">Pará (PA)</option>
+            <option value="PB">Paraíba (PB)</option>
+            <option value="PR">Paraná (PR)</option>
+            <option value="PE">Pernambuco (PE)</option>
+            <option value="PI">Piauí (PI)</option>
+            <option value="RJ">Rio de Janeiro (RJ)</option>
+            <option value="RN">Rio Grande do Norte (RN)</option>
+            <option value="RS">Rio Grande do Sul (RS)</option>
+            <option value="RO">Rondônia (RO)</option>
+            <option value="RR">Roraima (RR)</option>
+            <option value="SC">Santa Catarina (SC)</option>
+            <option value="SP">São Paulo (SP)</option>
+            <option value="SE">Sergipe (SE)</option>
+            <option value="TO">Tocantins (TO)</option>
+          </select>
+          {errors.state && (
             <div className="invalid-feedback">{errors.state}</div>
           )}
         </div>
 
-        <button type="submit" className="btn btn-success">
-          Enviar
-        </button>
+        <Stack direction="row" spacing={2}>
+          <Button
+            variant="contained"
+            type="submit"
+            endIcon={<SendIcon />}
+            sx={{
+              "&:hover": {
+                scale: 1.1,
+                boxShadow:
+                  "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+              },
+              transition: "0.25s",
+            }}
+          >
+            Enviar
+          </Button>
+        </Stack>
       </form>
     </div>
   );
 };
 
-export default AddBranchPage;
+export default AddBranch;
