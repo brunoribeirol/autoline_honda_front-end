@@ -10,11 +10,6 @@ export interface Goal {
   carQuantity: number;
 }
 
-// export interface Goal {
-//   goalDate: string; // ISO format: yyyy-mm-dd
-//   carQuantity: number;
-// }
-
 export const createGoal = (goal: Goal) =>
   axios
     .post(`${REST_API_BASE_URL(goal.cnpj)}/add`, goal)

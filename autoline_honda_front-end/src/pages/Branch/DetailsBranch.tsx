@@ -68,7 +68,7 @@ const DetailsBranch: React.FC = () => {
             <Button
               fullWidth
               variant="contained"
-              onClick={() => navigate(`/branches/${cnpj}/employees`)}
+              onClick={() => navigate(`/employees/${cnpj}`)}
               sx={{
                 backgroundColor: "#8BC34A",
                 "&:hover": {

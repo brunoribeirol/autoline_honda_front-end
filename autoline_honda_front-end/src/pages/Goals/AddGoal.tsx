@@ -12,14 +12,14 @@ import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
 
 const AddGoal: React.FC = () => {
-  const { cnpj } = useParams<{ cnpj: string }>(); // Get CNPJ from route params
   const [goalDate, setGoalDate] = useState("");
   const [carQuantity, setCarQuantity] = useState("");
+  const { cnpj } = useParams<{ cnpj: string }>(); // Get CNPJ from route params
 
   const [errors, setErrors] = useState({
-    cnpj: "",
     goalDate: "",
     carQuantity: "",
+    cnpj: "",
   });
 
   const navigate = useNavigate();
@@ -178,61 +178,3 @@ const AddGoal: React.FC = () => {
 };
 
 export default AddGoal;
-
-// return (
-//     <div className="container">
-//       <h2 className="text-center">Adicionar Meta Concessionária</h2>
-//       <form onSubmit={saveGoal}>
-//         {/* Campo de Data */}
-//         <div className="form-group mb-3">
-//           <label htmlFor="goalDate">Data da Meta:</label>
-//           <input
-//             type="date"
-//             id="goalDate"
-//             value={goalDate}
-//             onChange={(e) => setGoalDate(e.target.value)}
-//             className={`form-control ${errors.goalDate ? "is-invalid" : ""}`}
-//           />
-//           {errors.goalDate && (
-//             <div className="invalid-feedback">{errors.goalDate}</div>
-//           )}
-//         </div>
-
-//         {/* Campo de Quantidade de Carros */}
-//         <div className="form-group mb-3">
-//           <label htmlFor="carQuantity">Quantidade de Carros:</label>
-//           <input
-//             type="number"
-//             id="carQuantity"
-//             placeholder="Quantidade de Carros"
-//             value={carQuantity}
-//             onChange={(e) => setCarQuantity(e.target.value)}
-//             className={`form-control ${errors.carQuantity ? "is-invalid" : ""}`}
-//           />
-//           {errors.carQuantity && (
-//             <div className="invalid-feedback">{errors.carQuantity}</div>
-//           )}
-//         </div>
-
-//         {/* Botão de Enviar */}
-//         <Stack direction="row" spacing={2}>
-//           <Button
-//             variant="contained"
-//             type="submit"
-//             endIcon={<SendIcon />}
-//             sx={{
-//               "&:hover": {
-//                 scale: 1.1,
-//                 boxShadow:
-//                   "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-//               },
-//               transition: "0.25s",
-//             }}
-//           >
-//             Enviar
-//           </Button>
-//         </Stack>
-//       </form>
-//     </div>
-//   );
-// };

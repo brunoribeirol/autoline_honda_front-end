@@ -52,45 +52,34 @@ const Layout = () => (
         <Route path="/edit-branch/:cnpj" element={<EditBranch />} />
         <Route path="/view-branch/:cnpj" element={<DetailsBranch />} />
 
-        {/* <Route path="/branches" element={<ListBranches />} />
-        <Route path="/branches/add" element={<AddBranch />} />
-        <Route path="/branches/:cnpj" element={<DetailsBranch />} />
-        <Route path="/branches/:cnpj/edit" element={<EditBranch />} /> */}
-
         {/* Goals */}
-        <Route path="/goals/:cnpj" element={<ListGoals />} />
+        <Route path="/goals/:cnpj/" element={<ListGoals />} />
         <Route path="/goals/:cnpj/add" element={<AddGoal />} />
         <Route path="/goals/:cnpj/:goalId/edit" element={<EditGoal />} />
 
-        {/* <Route path="/branches/:cnpj/goals" element={<ListGoals />} />
-        <Route path="/branches/:cnpj/goals/add" element={<AddGoal />} />
-        <Route path="/branches/:cnpj/goals/:goalId/edit" element={<EditGoal />} /> */}
-
         {/* Employees */}
-        <Route path="/branches/:cnpj/employees" element={<ListEmployees />} />
-        <Route path="/branches/:cnpj/employees/add" element={<AddEmployee />} />
-        <Route path="/branches/:cnpj/employees/:cpf/edit" element={<EditEmployee />} />
+        <Route path="/employees/:cnpj" element={<ListEmployees />} />
+        <Route path="/employees/:cnpj/add" element={<AddEmployee />} />
+        <Route path="/employees/:cnpj/:cpf/edit" element={<EditEmployee />} />
 
         {/* Sales */}
-        <Route path="/branches/:cnpj/sales" element={<ListSales />} />
-        <Route path="/branches/:cnpj/sales/add" element={<AddSale />} />
-        <Route path="/branches/:cnpj/employees/:saleId/edit" element={<EditSale/>} />
+        <Route path="/sales/:cnpj" element={<ListSales />} />
+        <Route path="/sales/:cnpj/add" element={<AddSale />} />
+        <Route path="/sales/:cnpj/:saleId/edit" element={<EditSale/>} />
 
         {/* Cars */}
-        <Route path="branches/:cnpj/cars" element={<ListCars />} />
-        <Route path="/branches/:cnpj/cars/add" element={<AddCar />} />
-        <Route path="/branches/:cnpj/cars/:carChassis/edit" element={<EditCar />} />
+        <Route path="/cars/:cnpj" element={<ListCars />} />
+        <Route path="/cars/:cnpj/add" element={<AddCar />} />
+        <Route path="/cars/:cnpj/:carChassis/edit" element={<EditCar />} />
 
         {/* Customers */}
-        <Route path="branches/:cnpj/customers" element={<ListCustomers />} />
-        <Route path="/branches/:cnpj/customers/add" element={<AddCustomer />} />
-        <Route path="/branches/:cnpj/customers/:cpf/edit" element={<EditCustomer />} />
+        <Route path="/customers/:cnpj" element={<ListCustomers />} />
+        <Route path="/customers/:cnpj/add" element={<AddCustomer />} />
+        <Route path="/customers/:cnpj/:cpf/edit" element={<EditCustomer />} />
         
       </Routes>
     </main>
-    <Box>
       <FooterComponent />
-    </Box>
   </>
 );
 

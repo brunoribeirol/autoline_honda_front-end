@@ -17,7 +17,7 @@ type Employee = {
   name: string;
   salary: number;
   position: string;
-  branchCnpj: string;
+  cnpj: string;
   supervisorCpf: string;
 };
 
@@ -32,19 +32,25 @@ const ListEmployees: React.FC = () => {
     }
   }, [cnpj]);
 
-  const getAllEmployees = async () => {
-    try {
-      const response = await getEmployees();
-      if (response && response.data) {
-        const filteredEmployees = response.data.filter(
-          (employee: Employee) => employee.branchCnpj === cnpj
-        );
-        setEmployees(filteredEmployees);
-      }
-    } catch (error) {
-      console.error("Error fetching employees:", error);
-    }
-  };
+  function getAllEmployees() {
+    getEmployees(cnpj)
+      .then((response) => {
+        if (response && response.data) {
+          const filteredEmployees = [];
+          for (const employee of response.data) {
+            console.log(employee.cnpj);
+            if (employee.branchCnpj === cnpj) {
+              filteredEmployees.push(employee);
+            }
+          }
+          console.log("Filtered employees:", filteredEmployees); // Check the filtered result
+          setEmployees(filteredEmployees);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching employees:", error);
+      });
+  }
 
   const removeEmployee = async (cpf: string) => {
     try {
@@ -65,7 +71,7 @@ const ListEmployees: React.FC = () => {
         <Button
           variant="contained"
           startIcon={<AddCircle />}
-          onClick={() => navigate("/add-employee")}
+          onClick={() => navigate(`/employees/${cnpj}/add`)}
           size="large"
           sx={{
             "&:hover": {
@@ -118,13 +124,15 @@ const ListEmployees: React.FC = () => {
               >
                 <TableCell>{employee.cpf}</TableCell>
                 <TableCell>{employee.name}</TableCell>
-                <TableCell>{employee.salary.toLocaleString("pt-BR", {
-                  style: "currency",
-                  currency: "BRL",
-                })}</TableCell>
+                <TableCell>
+                  {employee.salary.toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
+                </TableCell>
                 <TableCell>{employee.position}</TableCell>
                 <TableCell align="right">
-                  <Stack direction="row" spacing={2}>
+                  <Stack direction="row" spacing={2} justifyContent="right">
                     <Button
                       variant="outlined"
                       startIcon={<Edit />}
