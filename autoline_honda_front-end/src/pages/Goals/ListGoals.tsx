@@ -13,9 +13,10 @@ import { Button, IconButton, Stack, Typography } from "@mui/material";
 import { Delete, Visibility, Edit, AddCircle } from "@mui/icons-material";
 
 type Goal = {
-  branchCnpj: string; // Adicionando cnpj
+  cnpj: string; // Adicionando cnpj
   goalDate: Date;
   carQuantity: number;
+  goalId: number;
 };
 
 const ListGoals: React.FC = () => {
@@ -32,7 +33,7 @@ const ListGoals: React.FC = () => {
   }, [cnpj]);
 
   function getAllGoals() {
-    getGoals()
+    getGoals(cnpj)
       .then((response) => {
         if (response && response.data) {
           console.log("oi");
@@ -53,10 +54,10 @@ const ListGoals: React.FC = () => {
   }
   
 
-  function removeGoal( branchCnpj: string) {
+  function removeGoal(goalId :number) {
     console.log("Deleting goal with CNPJ:", cnpj);
 
-    deleteGoal(branchCnpj)
+    deleteGoal(goalId)
       .then(() => {
         console.log(`Goal with CNPJ ${cnpj} deleted successfully.`);
         getAllGoals();
@@ -93,7 +94,7 @@ const ListGoals: React.FC = () => {
         <Button
           variant="contained"
           startIcon={<AddCircle />}
-          onClick={() => navigate("/add-goal")}
+          onClick={() => navigate(`/goals/${cnpj}/add`)}
           size="large"
           sx={{
             "&:hover": {
@@ -169,7 +170,7 @@ const ListGoals: React.FC = () => {
                         Apagar
                       </Button>
                     </Stack>
-                    <IconButton
+                    {/* <IconButton
                       aria-label="view"
                       onClick={() => {
                         console.log(
@@ -180,7 +181,7 @@ const ListGoals: React.FC = () => {
                       }}
                     >
                       <Visibility />
-                    </IconButton>
+                    </IconButton> */}
                   </Stack>
                 </TableCell>
               </TableRow>

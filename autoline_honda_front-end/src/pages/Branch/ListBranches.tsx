@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { deleteBranch, getBranches } from "../../services/Branch"; 
+import { deleteBranch, getBranches } from "../../services/Branch";
 import { useNavigate } from "react-router-dom";
 
 import Table from "@mui/material/Table";
@@ -131,7 +131,15 @@ const ListBranches: React.FC = () => {
                         variant="contained"
                         color="error"
                         startIcon={<Delete />}
-                        onClick={() => removeBranch(branch.cnpj)} // Call the renamed function
+                        onClick={() => {
+                          if (
+                            window.confirm(
+                              "Are you sure you want to delete this branch?"
+                            )
+                          ) {
+                            removeBranch(branch.cnpj);
+                          }
+                        }}
                       >
                         Apagar
                       </Button>

@@ -39,30 +39,6 @@ const DetailsBranch: React.FC = () => {
       {/* Navigation Buttons Section */}
       <Paper elevation={3} sx={{ padding: 3, borderRadius: 3 }}>
         <Grid container spacing={3} justifyContent="center">
-          {/* Manage Addresses */}
-          <Grid item xs={12} sm={6} md={4}>
-            <Button
-              fullWidth
-              variant="outlined"
-              onClick={() => navigate(`/address/${cnpj}`)}
-              sx={{
-                backgroundColor: "#FFEB3B",
-                "&:hover": {
-                  backgroundColor: "#FDD835",
-                },
-              }}
-            >
-              <AddCircle sx={{ marginRight: 1 }} />
-            </Button>
-            <Typography
-              variant="body2"
-              align="center"
-              sx={{ marginTop: 1, color: "#4A4A4A" }}
-            >
-              Manage Addresses
-            </Typography>
-          </Grid>
-
           {/* Manage Goals */}
           <Grid item xs={12} sm={6} md={4}>
             <Button
@@ -83,7 +59,7 @@ const DetailsBranch: React.FC = () => {
               align="center"
               sx={{ marginTop: 1, color: "#4A4A4A" }}
             >
-              Manage Goals
+              Gerenciar Metas
             </Typography>
           </Grid>
 
@@ -91,8 +67,8 @@ const DetailsBranch: React.FC = () => {
           <Grid item xs={12} sm={6} md={4}>
             <Button
               fullWidth
-              variant="outlined"
-              onClick={() => navigate(`/employees/${cnpj}`)}
+              variant="contained"
+              onClick={() => navigate(`/branches/${cnpj}/employees`)}
               sx={{
                 backgroundColor: "#8BC34A",
                 "&:hover": {
@@ -100,14 +76,14 @@ const DetailsBranch: React.FC = () => {
                 },
               }}
             >
-              <Edit sx={{ marginRight: 1 }} />
+              <Visibility sx={{ marginRight: 1 }} />
             </Button>
             <Typography
               variant="body2"
               align="center"
               sx={{ marginTop: 1, color: "#4A4A4A" }}
             >
-              Manage Employees
+              Gerenciar Funcionários
             </Typography>
           </Grid>
 
@@ -116,7 +92,7 @@ const DetailsBranch: React.FC = () => {
             <Button
               fullWidth
               variant="contained"
-              onClick={() => navigate(`/sales/${cnpj}`)}
+              onClick={() => navigate(`/branches/${cnpj}/sales`)}
               sx={{
                 backgroundColor: "#FF9800",
                 "&:hover": {
@@ -124,14 +100,14 @@ const DetailsBranch: React.FC = () => {
                 },
               }}
             >
-              <Delete sx={{ marginRight: 1 }} />
+              <Visibility sx={{ marginRight: 1 }} />
             </Button>
             <Typography
               variant="body2"
               align="center"
               sx={{ marginTop: 1, color: "#4A4A4A" }}
             >
-              Manage Sales
+              Gerenciar Vendas
             </Typography>
           </Grid>
 
@@ -139,8 +115,8 @@ const DetailsBranch: React.FC = () => {
           <Grid item xs={12} sm={6} md={4}>
             <Button
               fullWidth
-              variant="outlined"
-              onClick={() => navigate(`/cars/${cnpj}`)}
+              variant="contained"
+              onClick={() => navigate(`/branches/${cnpj}/cars`)}
               sx={{
                 backgroundColor: "#9C27B0",
                 "&:hover": {
@@ -155,7 +131,7 @@ const DetailsBranch: React.FC = () => {
               align="center"
               sx={{ marginTop: 1, color: "#4A4A4A" }}
             >
-              Manage Cars
+              Gerenciar Carros
             </Typography>
           </Grid>
 
@@ -164,7 +140,7 @@ const DetailsBranch: React.FC = () => {
             <Button
               fullWidth
               variant="contained"
-              onClick={() => navigate(`/clients/${cnpj}`)}
+              onClick={() => navigate(`/branches/${cnpj}/customers`)}
               sx={{
                 backgroundColor: "#2196F3",
                 "&:hover": {
@@ -172,14 +148,14 @@ const DetailsBranch: React.FC = () => {
                 },
               }}
             >
-              <AddCircle sx={{ marginRight: 1 }} />
+              <Visibility sx={{ marginRight: 1 }} />
             </Button>
             <Typography
               variant="body2"
               align="center"
               sx={{ marginTop: 1, color: "#4A4A4A" }}
             >
-              Manage Clients
+              Gerenciar Clientes
             </Typography>
           </Grid>
         </Grid>
@@ -192,11 +168,9 @@ const DetailsBranch: React.FC = () => {
 
 export default DetailsBranch;
 
-
 // import React, { useState } from "react";
 // import { createBranch } from "../../services/Branch";
 // import { useNavigate, useParams } from "react-router-dom";
-
 
 // import Table from "@mui/material/Table";
 // import TableBody from "@mui/material/TableBody";
@@ -243,4 +217,3 @@ export default DetailsBranch;
 // };
 
 // export default DetailsBranch;
-

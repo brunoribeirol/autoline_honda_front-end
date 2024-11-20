@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { createGoal } from "../../services/Goals";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 // import {
 //   validateCNPJ,
 //   validateZipCode,
@@ -11,16 +11,42 @@ import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
 
-const AddGoal = () => {
+const AddGoal: React.FC = () => {
+  const { cnpj } = useParams<{ cnpj: string }>(); // Get CNPJ from route params
   const [goalDate, setGoalDate] = useState("");
   const [carQuantity, setCarQuantity] = useState("");
 
   const [errors, setErrors] = useState({
+    cnpj: "",
     goalDate: "",
     carQuantity: "",
   });
 
   const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   console.log("CNPJ from route params:", cnpj); // Debug log
+
+  //   if (cnpj) {
+  //     getGoals(cnpj) // Pass the cnpj directly
+  //       .then((response) => {
+  //         console.log("Fetched branch details:", response.data); // Debug log
+  //         if (response.data) {
+  //           setName(response.data.name); // Set the branch's name
+  //         } else {
+  //           throw new Error("Branch not found");
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error fetching branch details:", error);
+  //         alert("Concessionária não encontrada.");
+  //         navigate("/goals");
+  //       });
+  //   } else {
+  //     console.error("CNPJ is undefined. Redirecting...");
+  //     navigate("/goals");
+  //   }
+  // }, [cnpj]);
 
   // Função para validar a data da meta
   const validateGoalDate = (date: string) => {
@@ -40,6 +66,7 @@ const AddGoal = () => {
   const validateForm = () => {
     let isValid = true;
     const errorsCopy = {
+      cnpj: "",
       goalDate: "",
       carQuantity: "",
     };
@@ -69,7 +96,8 @@ const AddGoal = () => {
 
     if (validateForm()) {
       const goal = {
-        goalDate,
+        cnpj,
+        goalDate: new Date(goalDate),
         carQuantity: Number(carQuantity),
       };
 
@@ -80,7 +108,7 @@ const AddGoal = () => {
         .then((response) => {
           if (response?.data) {
             console.log("Meta criada com sucesso:", response.data);
-            navigate("/goals");
+            navigate(`/goals/${cnpj}`);
           }
         })
         .catch((error) => {
