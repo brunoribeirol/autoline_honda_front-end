@@ -52,15 +52,24 @@ const ListEmployees: React.FC = () => {
       });
   }
 
-  const removeEmployee = async (cpf: string) => {
-    try {
-      await deleteEmployee(cpf);
-      console.log(`Employee with CPF ${cpf} deleted successfully.`);
-      getAllEmployees(); // Refresh the list after deletion
-    } catch (error) {
-      console.error("Error deleting employee:", error);
+
+  function removeEmployee(cpf: string) {
+    if (!cnpj) {
+      console.error("CNPJ is missing");
+      return;
     }
-  };
+
+    console.log("Deleting employee with CPF:", cpf);
+    deleteEmployee(cnpj, cpf)
+    //deleteEmployee(cpf)
+      .then(() => {
+        console.log(`Employee with CPF ${cpf} deleted successfully.`);
+        getAllEmployees();
+      })
+      .catch((error) => {
+        console.error("Error deleting employee:", error);
+      });
+  }
 
   return (
     <div>
@@ -136,7 +145,9 @@ const ListEmployees: React.FC = () => {
                     <Button
                       variant="outlined"
                       startIcon={<Edit />}
-                      onClick={() => navigate(`/edit-employee/${employee.cpf}`)}
+                      onClick={() =>
+                        navigate(`/employees/${employee.cnpj}/${employee.cpf}/edit`)
+                      }
                     >
                       Editar
                     </Button>
@@ -144,7 +155,17 @@ const ListEmployees: React.FC = () => {
                       variant="contained"
                       color="error"
                       startIcon={<Delete />}
-                      onClick={() => removeEmployee(employee.cpf)}
+                      onClick={() => {
+                        if (
+                          window.confirm(
+                            "Tem certeza de que deseja excluir este funcionário?"
+                          )
+                        ) {
+                          removeEmployee(employee.cpf);
+                          //navigate com cpf na url
+                          //redireciona pra a lista
+                        }
+                      }}
                     >
                       Apagar
                     </Button>

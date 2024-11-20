@@ -9,7 +9,7 @@ const EditBranch: React.FC = () => {
   // Address
   const [zipCode, setZipCode] = useState("");
   const [street, setStreet] = useState("");
-  const [addressNumber, setAddressNumber] = useState("");
+  const [addressNumber, setAddressNumber] = useState<number | "">("");
   const [neighborhood, setNeighborhood] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -36,6 +36,14 @@ const EditBranch: React.FC = () => {
           console.log("Fetched branch details:", response.data); // Debug log
           if (response.data) {
             setName(response.data.name); // Set the branch's name
+            if (response.data.address) {
+              setZipCode(response.data.address.zipCode);
+              setStreet(response.data.address.street);
+              setAddressNumber(response.data.address.addressNumber);
+              setNeighborhood(response.data.address.neighborhood);
+              setCity(response.data.address.city);
+              setState(response.data.address.state);
+          }
           } else {
             throw new Error("Branch not found");
           }
@@ -51,32 +59,73 @@ const EditBranch: React.FC = () => {
     }
   }, [cnpj]);
 
+  // const validateForm = () => {
+  //   let valid = true;
+  //   const errorsCopy = { name: "" };
+
+  //   if (!name.trim()) {
+  //     errorsCopy.name = "O nome é obrigatório.";
+  //     valid = false;
+  //   }
+
+  //   setErrors(errorsCopy);
+  //   return valid;
+  // };
+
   const validateForm = () => {
     let valid = true;
-    const errorsCopy = { name: "" };
-
+    const errorsCopy: any = {};
+  
     if (!name.trim()) {
       errorsCopy.name = "O nome é obrigatório.";
       valid = false;
     }
-
+    if (!zipCode.trim()) {
+      errorsCopy.zipCode = "O CEP é obrigatório.";
+      valid = false;
+    }
+    if (!street.trim()) {
+      errorsCopy.street = "A rua é obrigatória.";
+      valid = false;
+    }
+    if (!addressNumber) {
+      errorsCopy.addressNumber = "O número é obrigatório.";
+      valid = false;
+    }
+    if (!neighborhood.trim()) {
+      errorsCopy.neighborhood = "O bairro é obrigatório.";
+      valid = false;
+    }
+    if (!city.trim()) {
+      errorsCopy.city = "A cidade é obrigatória.";
+      valid = false;
+    }
+    if (!state.trim()) {
+      errorsCopy.state = "O estado é obrigatório.";
+      valid = false;
+    }
+  
     setErrors(errorsCopy);
     return valid;
   };
+  
 
   const updateBranchDetails = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (validateForm()) {
       const updatedBranch = {
+        cnpj: cnpj!,
         name,
         zipCode,
         street,
-        addressNumber,
+        addressNumber: Number(addressNumber),
         neighborhood,
         city,
         state,
       };
+
+      console.log("Payload enviado:", updatedBranch);
 
       updateBranch(cnpj!, updatedBranch) // Pass cnpj separately
         .then((response) => {
@@ -84,8 +133,11 @@ const EditBranch: React.FC = () => {
           navigate("/branches");
         })
         .catch((error) => {
-          console.error("Error updating branch:", error);
-          alert("Erro ao atualizar a concessionária.");
+          if (error.response && error.response.data) {
+            alert(`Erro ao atualizar: ${error.response.data.message}`);
+          } else {
+            alert("Erro ao atualizar a concessionária. Tente novamente mais tarde.");
+          }
         });
     }
   };
@@ -113,7 +165,7 @@ const EditBranch: React.FC = () => {
             id="name"
             placeholder="Nome da Concessionária"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setAddressNumber(e.target.value ? parseInt(e.target.value, 10) : "")}
             className={`form-control ${errors.name ? "is-invalid" : ""}`}
           />
           {errors.name && <div className="invalid-feedback">{errors.name}</div>}

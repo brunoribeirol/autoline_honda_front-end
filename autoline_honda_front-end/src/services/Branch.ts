@@ -69,7 +69,7 @@ export const getBranch = (cnpj: string) =>
   axios.get(`${REST_API_BASE_URL}/${cnpj}`)
     .catch((error) => console.error("Error fetching branch:", error.response?.data || error.message));
 
-export const updateBranch = (cnpj: string, updatedData: { name: string }) => 
+export const updateBranch = (cnpj: string, updatedData: Branch) =>
   axios.put(`${REST_API_BASE_URL}/${cnpj}`, updatedData)
     .catch((error) => console.error("Error updating branch:", error.response?.data || error.message));
 
