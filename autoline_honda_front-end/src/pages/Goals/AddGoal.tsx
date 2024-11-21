@@ -156,6 +156,13 @@ const AddGoal: React.FC = () => {
           )}
         </div>
         <Stack direction="row" spacing={2}>
+        <button
+          type="button"
+          className="btn btn-warning ml-2"
+          onClick={() => navigate(`/goals/${cnpj}`)}
+        >
+          Voltar
+        </button>
           <Button
             variant="contained"
             type="submit"

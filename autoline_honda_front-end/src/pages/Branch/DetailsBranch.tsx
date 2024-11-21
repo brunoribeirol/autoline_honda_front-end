@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   Button,
@@ -10,10 +10,28 @@ import {
   Grid,
 } from "@mui/material";
 import { AddCircle, Edit, Delete, Visibility } from "@mui/icons-material";
+import { getBranch } from "../../services/Branch";
 
 const DetailsBranch: React.FC = () => {
   const { cnpj } = useParams<{ cnpj: string }>(); // Capture 'cnpj' parameter from URL
   const navigate = useNavigate();
+
+  const [branchName, setBranchName] = useState<string>(""); // Inicializa o estado do nome da branch
+
+  useEffect(() => {
+    if (cnpj) {
+      getBranch(cnpj)
+        .then((response) => {
+          if (response.data) {
+            setBranchName(response.data.name || "Concessionária Desconhecida"); // Atualiza o nome da branch
+          }
+        })
+        .catch((error) => {
+          console.error("Erro ao buscar os detalhes da branch:", error);
+          setBranchName("Concessionária Não Encontrada");
+        });
+    }
+  }, [cnpj]);
 
   return (
     <Box sx={{ padding: 3, backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
@@ -29,7 +47,7 @@ const DetailsBranch: React.FC = () => {
             marginBottom: 2,
           }}
         >
-          {cnpj}
+          {branchName}
         </Typography>
         <Typography variant="h6" sx={{ color: "#4A4A4A" }}>
           Explore the branch functionalities below.
@@ -85,79 +103,7 @@ const DetailsBranch: React.FC = () => {
             >
               Gerenciar Funcionários
             </Typography>
-          </Grid>
-
-          {/* Manage Sales */}
-          <Grid item xs={12} sm={6} md={4}>
-            <Button
-              fullWidth
-              variant="contained"
-              onClick={() => navigate(`/branches/${cnpj}/sales`)}
-              sx={{
-                backgroundColor: "#FF9800",
-                "&:hover": {
-                  backgroundColor: "#FB8C00",
-                },
-              }}
-            >
-              <Visibility sx={{ marginRight: 1 }} />
-            </Button>
-            <Typography
-              variant="body2"
-              align="center"
-              sx={{ marginTop: 1, color: "#4A4A4A" }}
-            >
-              Gerenciar Vendas
-            </Typography>
-          </Grid>
-
-          {/* Manage Cars */}
-          <Grid item xs={12} sm={6} md={4}>
-            <Button
-              fullWidth
-              variant="contained"
-              onClick={() => navigate(`/branches/${cnpj}/cars`)}
-              sx={{
-                backgroundColor: "#9C27B0",
-                "&:hover": {
-                  backgroundColor: "#8E24AA",
-                },
-              }}
-            >
-              <Visibility sx={{ marginRight: 1 }} />
-            </Button>
-            <Typography
-              variant="body2"
-              align="center"
-              sx={{ marginTop: 1, color: "#4A4A4A" }}
-            >
-              Gerenciar Carros
-            </Typography>
-          </Grid>
-
-          {/* Manage Clients */}
-          <Grid item xs={12} sm={6} md={4}>
-            <Button
-              fullWidth
-              variant="contained"
-              onClick={() => navigate(`/branches/${cnpj}/customers`)}
-              sx={{
-                backgroundColor: "#2196F3",
-                "&:hover": {
-                  backgroundColor: "#1976D2",
-                },
-              }}
-            >
-              <Visibility sx={{ marginRight: 1 }} />
-            </Button>
-            <Typography
-              variant="body2"
-              align="center"
-              sx={{ marginTop: 1, color: "#4A4A4A" }}
-            >
-              Gerenciar Clientes
-            </Typography>
-          </Grid>
+          </Grid>          
         </Grid>
       </Paper>
 
@@ -167,53 +113,3 @@ const DetailsBranch: React.FC = () => {
 };
 
 export default DetailsBranch;
-
-// import React, { useState } from "react";
-// import { createBranch } from "../../services/Branch";
-// import { useNavigate, useParams } from "react-router-dom";
-
-// import Table from "@mui/material/Table";
-// import TableBody from "@mui/material/TableBody";
-// import TableCell from "@mui/material/TableCell";
-// import TableContainer from "@mui/material/TableContainer";
-// import TableHead from "@mui/material/TableHead";
-// import TableRow from "@mui/material/TableRow";
-// import Paper from "@mui/material/Paper";
-// import {
-//   Button,
-//   ButtonGroup,
-//   IconButton,
-//   Stack,
-//   Typography,
-// } from "@mui/material";
-// import { Delete, Visibility, Edit, AddCircle } from "@mui/icons-material";
-
-// const DetailsBranch: React.FC = () => {
-//   const { cnpj } = useParams<{ cnpj: string }>(); // Captura o parâmetro 'cnpj' da URL
-//   const navigate = useNavigate();
-
-//   return (
-//     <ButtonGroup variant="contained" aria-label="Basic button group">
-//       <Stack direction="row" spacing={2} alignContent="center">
-//         <Button variant="contained">Endereço</Button>
-//         <Button
-//           variant="contained"
-//           onClick={() => {
-//             navigate(`/goals/${cnpj}`);
-//           }}
-//         >
-//           Metas
-//         </Button>
-//         <Button variant="contained">Funcionários</Button>
-//         <Button variant="contained">Vendas</Button>
-//         {/* Specification dentro de carro */}
-//         <Button variant="contained">Carros</Button>
-//         {/* CustomerPhone dentro de cliente */}
-//         {/* TradeInCredit dentro de cliente */}
-//         <Button variant="contained">Clientes</Button>
-//       </Stack>
-//     </ButtonGroup>
-//   );
-// };
-
-// export default DetailsBranch;

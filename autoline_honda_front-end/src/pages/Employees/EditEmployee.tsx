@@ -146,7 +146,7 @@ const EditEmployee: React.FC = () => {
             type="button"
             variant="contained"
             color="secondary"
-            onClick={() => navigate(`/employees/${employee.cnpj}`)}
+            onClick={() => navigate(`/employees/${cnpj}`)}
           >
             Cancelar
           </Button>

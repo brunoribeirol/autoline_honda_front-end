@@ -60,6 +60,13 @@ const ListBranches: React.FC = () => {
         Concessionárias
       </h2>
       <Stack direction="row">
+      <button
+          type="button"
+          className="btn btn-warning ml-2"
+          onClick={() => navigate("/")}
+        >
+          Voltar
+        </button>
         <Button
           variant="contained"
           startIcon={<AddCircle />}

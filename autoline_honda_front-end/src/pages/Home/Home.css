@@ -75,6 +75,10 @@
     background-color: #ffc107;
     color: white;
   }
+
+  .btn-warning {
+    background-color: orange;
+  }
   
   .btn-success:hover {
     background-color: #e0a800;

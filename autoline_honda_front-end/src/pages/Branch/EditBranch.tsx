@@ -6,6 +6,7 @@ const EditBranch: React.FC = () => {
   const { cnpj } = useParams<{ cnpj: string }>(); // Get CNPJ from route params
   const [name, setName] = useState("");
 
+
   // Address
   const [zipCode, setZipCode] = useState("");
   const [street, setStreet] = useState("");
@@ -293,12 +294,12 @@ const EditBranch: React.FC = () => {
           )}
         </div>
 
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-secondary">
           Atualizar
         </button>
         <button
           type="button"
-          className="btn btn-secondary ml-2"
+          className="btn btn-primary ml-2"
           onClick={() => navigate("/branches")}
         >
           Cancelar

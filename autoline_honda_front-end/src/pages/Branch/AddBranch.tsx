@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 
 const AddBranch: React.FC = () => {
   // Branch
@@ -302,6 +303,13 @@ const AddBranch: React.FC = () => {
         </div>
 
         <Stack direction="row" spacing={2}>
+        <button
+          type="button"
+          className="btn btn-warning ml-2"
+          onClick={() => navigate("/branches")}
+        >
+          Voltar
+        </button>
           <Button
             variant="contained"
             type="submit"

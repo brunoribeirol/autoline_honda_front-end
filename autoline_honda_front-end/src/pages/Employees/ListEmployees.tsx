@@ -80,6 +80,13 @@ const ListEmployees: React.FC = () => {
         Funcionários
       </h2>
       <Stack direction="row" spacing={2} sx={{ marginBottom: "15px" }}>
+      <button
+          type="button"
+          className="btn btn-warning ml-2"
+          onClick={() => navigate(`/view-branch/${cnpj}`)}
+        >
+          Voltar
+        </button>
         <Button
           variant="contained"
           startIcon={<AddCircle />}

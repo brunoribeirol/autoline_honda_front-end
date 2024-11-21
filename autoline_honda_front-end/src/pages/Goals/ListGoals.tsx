@@ -79,6 +79,13 @@ const ListGoals: React.FC = () => {
         Metas
       </h2>
       <Stack direction="row">
+      <button
+          type="button"
+          className="btn btn-warning ml-2"
+          onClick={() => navigate(`/view-branch/${cnpj}`)}
+        >
+          Voltar
+        </button>
         <Button
           variant="contained"
           startIcon={<AddCircle />}
@@ -136,19 +143,6 @@ const ListGoals: React.FC = () => {
                 <TableCell align="right">
                   <Stack direction="row" justifyContent="right" spacing={8}>
                     <Stack direction="row" spacing={2}>
-                      <Button
-                        variant="outlined"
-                        startIcon={<Edit />}
-                        onClick={() => {
-                          console.log(
-                            "Navigating to edit page with CNPJ:",
-                            goal.cnpj
-                          ); // Debug log
-                          navigate(`/edit-goal/${goal.cnpj}`);
-                        }}
-                      >
-                        Editar
-                      </Button>
                       <Button
                         variant="contained"
                         color="error"
