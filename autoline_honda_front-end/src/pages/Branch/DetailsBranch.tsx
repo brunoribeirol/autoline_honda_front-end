@@ -8,9 +8,16 @@ import {
   Paper,
   Divider,
   Grid,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Drawer,
 } from "@mui/material";
 import { AddCircle, Edit, Delete, Visibility } from "@mui/icons-material";
-import { getBranch } from "../../services/Branch";
+import Dashboard from "../../components/Dashboard/Dashboard";
+
 
 const DetailsBranch: React.FC = () => {
   const { cnpj } = useParams<{ cnpj: string }>(); // Capture 'cnpj' parameter from URL
@@ -34,7 +41,7 @@ const DetailsBranch: React.FC = () => {
   }, [cnpj]);
 
   return (
-    <Box sx={{ padding: 3, backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
+    <Stack sx={{ padding: 3, backgroundColor: "#fff", minHeight: "100vh"}} spacing={6}>
       {/* Header Section */}
       <Box sx={{ textAlign: "center", marginBottom: 4 }}>
         <Typography
@@ -107,8 +114,10 @@ const DetailsBranch: React.FC = () => {
         </Grid>
       </Paper>
 
+      <Dashboard/>
+
       <Divider sx={{ marginY: 3 }} />
-    </Box>
+    </Stack>
   );
 };
 

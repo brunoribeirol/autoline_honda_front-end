@@ -38,7 +38,13 @@ import EditCustomer from "./pages/Customer/EditCustomer";
 
 // Layout that wraps the common Header and Footer
 const Layout = () => (
-  <>
+  <Box
+    sx={{
+      display: "flex",
+      flexDirection: "column",
+      minHeight: "100vh", // Ocupa a altura total da tela
+    }}
+  >
     <HeaderComponent />
     <main className="container">
       <Routes>
@@ -80,7 +86,8 @@ const Layout = () => (
         
       </Routes>
     </main>
-  </>
+      <FooterComponent />
+  </Box>
 );
 
 const darkTheme = createTheme({

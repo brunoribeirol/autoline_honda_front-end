@@ -1,22 +1,41 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./Home.css";
+import { Box, Typography, Button } from "@mui/material";
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="homepage-container">
-      {/* Hero Section */}
-      <header className="hero-section">
-        <h1 className="hero-title">
-          Bem-vindo ao Sistema de Gestão de Concessionárias
-        </h1>
-        <p className="hero-subtitle">
-          Gerencie suas filiais, funcionários e vendas de forma eficiente e
-          integrada.
-        </p>
-      </header>
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+        backgroundColor: "#f5f5f5", // Fundo geral mais claro
+      }}
+    >
+      <Box
+        sx={{
+          textAlign: "center",
+          borderRadius: 2,
+          boxShadow: 1, // Sombras mais suaves
+          padding: 4,
+          maxWidth: 400,
+          backgroundColor: "#ffffffb3", // Branco translúcido para combinar
+        }}
+      >
+        {/* Título */}
+        <Typography
+          variant="h4"
+          component="h1"
+          sx={{ fontWeight: "bold", mb: 3 }}
+        >
+          Sistema de Gestão de Concessionárias
+        </Typography>
+        <Typography variant="body1" sx={{ mb: 4, color: "text.secondary" }}>
+          Gerencie suas filiais com facilidade e eficiência.
+        </Typography>
 
       {/* Main Actions */}
       <div className="main-actions">
