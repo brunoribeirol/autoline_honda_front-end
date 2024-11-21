@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createCar } from "../../services/Car"; // Presume-se que exista um serviço para criar carros
+import { createCar } from "../../services/Car";
 import { useNavigate } from "react-router-dom";
 
 import Button from "@mui/material/Button";
@@ -25,60 +25,6 @@ const AddCar: React.FC = () => {
 
   const navigate = useNavigate();
 
-  // const saveCar = (e: React.FormEvent) => {
-  //   e.preventDefault();
-
-  //   const car = {
-  //     chassis,
-  //     price: parseFloat(price),
-  //     color,
-  //     wheelSize: parseInt(wheelSize, 10),
-  //     fuelType,
-  //     year: parseInt(year, 10),
-  //     engine,
-  //     transmission,
-  //     mileage: parseInt(mileage, 10),
-  //     specification: {
-  //       category,
-  //       model,
-  //       version,
-  //     },
-  //   };
-
-  //   createCar(car)
-  //     .then((response) => {
-  //       if (response?.data) {
-  //         console.log("Car created successfully:", response.data);
-  //         navigate("/cars");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error(
-  //         "Error creating car:",
-  //         error.response?.data || error.message
-  //       );
-  //     });
-  // };
-  // const saveCar = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  
-  //   const car = {
-  //     chassis,
-  //     price: parseFloat(price),
-  //     color,
-  //     wheelSize: parseInt(wheelSize, 10),
-  //     fuelType,
-  //     year: parseInt(year, 10),
-  //     engine,
-  //     transmission,
-  //     mileage: parseInt(mileage, 10),
-  //     carCondition: mileage === 0 ? "New" : "Used", // Derivada
-  //     specification: {
-  //       category,
-  //       model,
-  //       version,
-  //     },
-  //   };
     const saveCar = (e: React.FormEvent) => {
       e.preventDefault();
     
@@ -112,76 +58,6 @@ const AddCar: React.FC = () => {
           );
         });
     };
-
-    // const saveCar = (e: React.FormEvent) => {
-    //   e.preventDefault();
-    
-    //   const parsedMileage = parseInt(mileage, 10);
-    
-    //   const car = {
-    //     chassis,
-    //     price: parseFloat(price),
-    //     color,
-    //     wheelSize: parseInt(wheelSize, 10),
-    //     fuelType,
-    //     year: parseInt(year, 10),
-    //     engine,
-    //     transmission,
-    //     mileage: parsedMileage,
-    //     carCondition: parsedMileage === 0 ? "New" : "Used", // Derived field
-    //     category, // Directly included in the car object
-    //     model,    // Directly included in the car object
-    //     version,  // Directly included in the car object
-    //   };
-    
-    //   createCar(car)
-    //     .then((response) => {
-    //       if (response?.data) {
-    //         console.log("Car created successfully:", response.data);
-    //         navigate("/cars");
-    //       }
-    //     })
-    //     .catch((error) => {
-    //       console.error(
-    //         "Error creating car:",
-    //         error.response?.data || error.message
-    //       );
-    //     });
-    // };
-    
-    
-
-    // const car = {
-    //   chassis,
-    //   price: parseFloat(price),
-    //   color,
-    //   wheelSize: parseInt(wheelSize, 10),
-    //   fuelType,
-    //   year: parseInt(year, 10),
-    //   engine,
-    //   transmission,
-    //   mileage: parseInt(mileage, 10),
-    //   carCondition: mileage === 0 ? "New" : "Used",
-    //   category,
-    //   model,
-    //   version,
-    //   carChassis: chassis, // Presume-se que o `carChassis` seja o mesmo que `chassis`
-    // };
-    
-  //   createCar(car)
-  //     .then((response) => {
-  //       if (response?.data) {
-  //         console.log("Car created successfully:", response.data);
-  //         navigate("/cars");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error(
-  //         "Error creating car:",
-  //         error.response?.data || error.message
-  //       );
-  //     });
-  // };
   
   return (
     <div className="container">
