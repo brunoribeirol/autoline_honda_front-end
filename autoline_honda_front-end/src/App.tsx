@@ -8,7 +8,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 //Footer and Header
 import HeaderComponent from "./components/Header/Header";
-import FooterComponent from "./components/Footer/Footer";
+//import FooterComponent from "./components/Footer/Footer";
 //Home
 import Home from "./pages/Home/Home";
 // Branches
@@ -35,6 +35,7 @@ import DetailsCar from "./pages/Car/DetailsCar";
 import ListCustomers from "./pages/Customer/ListCustomers";
 import AddCustomer from "./pages/Customer/AddCustomer";
 import EditCustomer from "./pages/Customer/EditCustomer";
+import DashboarPage from "./pages/Dashboard/DashboardPage";
 
 // Layout that wraps the common Header and Footer
 const Layout = () => (
@@ -80,13 +81,16 @@ const Layout = () => (
         <Route path="/view-car/:carChassis" element={<DetailsCar />} />
 
         {/* Customers */}
-        <Route path="/customers/:cnpj" element={<ListCustomers />} />
-        <Route path="/customers/:cnpj/add" element={<AddCustomer />} />
-        <Route path="/customers/:cnpj/:cpf/edit" element={<EditCustomer />} />
+        <Route path="/customers" element={<ListCustomers />} />
+        <Route path="/add-customer" element={<AddCustomer />} />
+        <Route path="/edit-customer/:cpf" element={<EditCustomer />} />
+        {/* <Route path="/view-customer/:cpf" element={<DetailsCustomer />} /> */}
+
+        <Route path="/dashboard" element={<DashboarPage />} />
         
       </Routes>
     </main>
-      <FooterComponent />
+      {/* <FooterComponent /> */}
   </Box>
 );
 

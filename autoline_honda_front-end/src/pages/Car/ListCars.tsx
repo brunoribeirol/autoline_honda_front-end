@@ -71,19 +71,6 @@ const ListCars: React.FC = () => {
       });
   }
 
-  // // Função para deletar um carro
-  // const removeCar = (chassis: string) => {
-  //   deleteCar(chassis)
-  //     .then(() => {
-  //       console.log(`Car with chassis ${chassis} deleted successfully.`);
-  //       getAllCars(); // Recarrega a lista após deletar
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error deleting car:", error);
-  //       alert("Erro ao deletar o carro.");
-  //     });
-  // };
-
   return (
     <div>
       <h2 className="text-center" style={{ margin: "15px" }}>
@@ -140,7 +127,7 @@ const ListCars: React.FC = () => {
               </TableCell>
               <TableCell>
                 <Typography variant="body1" style={{ fontWeight: "bold" }}>
-                  TRANSMISSÃO
+                  CÂMBIO
                 </Typography>
               </TableCell>
               <TableCell>
@@ -155,7 +142,7 @@ const ListCars: React.FC = () => {
               </TableCell>
               <TableCell>
                 <Typography variant="body1" style={{ fontWeight: "bold" }}>
-                  KILOMETRAGEM
+                  QUILOMETRAGEM
                 </Typography>
               </TableCell>
 

@@ -60,19 +60,6 @@ const EditBranch: React.FC = () => {
     }
   }, [cnpj]);
 
-  // const validateForm = () => {
-  //   let valid = true;
-  //   const errorsCopy = { name: "" };
-
-  //   if (!name.trim()) {
-  //     errorsCopy.name = "O nome é obrigatório.";
-  //     valid = false;
-  //   }
-
-  //   setErrors(errorsCopy);
-  //   return valid;
-  // };
-
   const validateForm = () => {
     let valid = true;
     const errorsCopy: any = {};

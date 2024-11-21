@@ -18,6 +18,12 @@ export interface Dashboard {
     salesInDateRange: SalesInDateRange[]
   }
   
+  // clientsWithTradeInCredit: ClientsWithTradeInCredit[]
+  // employeeSummary: EmployeeSummary
+  // branchGoals: BranchGoal[]
+  // mostSoldCar: any
+  // salesInDateRange: SalesInDateRange[]
+
   export interface SalesByEmployee {
     employeeName: string
     totalSales: number
