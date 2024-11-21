@@ -80,7 +80,6 @@ const Layout = () => (
         
       </Routes>
     </main>
-      <FooterComponent />
   </>
 );
 
