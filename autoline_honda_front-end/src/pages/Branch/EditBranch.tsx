@@ -180,6 +180,7 @@ const EditBranch: React.FC = () => {
             placeholder="CEP"
             value={zipCode || ""}
             onChange={(e) => setZipCode(e.target.value)}
+  
             className={`form-control ${errors.zipCode ? "is-invalid" : ""}`}
           />
           {errors.zipCode && (

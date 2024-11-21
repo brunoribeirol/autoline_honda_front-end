@@ -40,25 +40,23 @@ export const getGoals = (cnpj: string) =>
 //       )
 //     );
 
-export const updateGoal = (
-  goalId: number,
-  updatedData: { goalDate: Date; carQuantity: number }
-) =>
-  axios
-    .put(`${REST_API_BASE_URL}/${goalId}`, updatedData)
-    .catch((error) =>
-      console.error(
-        "Error updating goal:",
-        error.response?.data || error.message
-      )
-    );
 
-export const deleteGoal = (goalId: number) =>
+export const deleteGoal = (cnpj: string, goalId: number) =>
   axios
-    .delete(`${REST_API_BASE_URL}/${goalId}`)
+    .delete(`${REST_API_BASE_URL(cnpj)}/${goalId}`)
     .catch((error) =>
       console.error(
         "Error deleting goal:",
         error.response?.data || error.message
       )
     );
+
+    export const updateGoal = (cnpj: string, goalId: number, updatedData: Partial<Goal>) =>
+      axios
+        .put(`${REST_API_BASE_URL(cnpj)}/${goalId}/edit`, updatedData)
+        .catch((error) =>
+          console.error(
+            "Error updating goal:",
+            error.response?.data || error.message
+          )
+        );

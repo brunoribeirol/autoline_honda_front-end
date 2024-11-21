@@ -23,7 +23,7 @@ const ListGoals: React.FC = () => {
   const [goals, setGoals] = useState<Goal[]>([]);
   const { cnpj } = useParams<{ cnpj: string }>();
   console.log("CNPJ recebido:", cnpj);
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,57 +33,45 @@ const ListGoals: React.FC = () => {
   }, [cnpj]);
 
   function getAllGoals() {
+    if (!cnpj) {
+      console.error("CNPJ está undefined, verifique a rota ou os parâmetros.");
+      return;
+    }
     getGoals(cnpj)
       .then((response) => {
         if (response && response.data) {
-          console.log("oi");
           const filteredGoals = [];
           for (const goal of response.data) {
             console.log(goal.cnpj);
             if (goal.branchCnpj === cnpj) {
               filteredGoals.push(goal);
             }
-            console.log(filteredGoals)
+            console.log(filteredGoals);
           }
-          setGoals(filteredGoals); 
+          setGoals(filteredGoals);
         }
       })
       .catch((error) => {
         console.error("Erro ao buscar metas:", error);
       });
   }
-  
 
-  function removeGoal(goalId :number) {
+  function removeGoal(goalId: number) {
+    if (!cnpj) {
+      console.error("CNPJ is missing");
+      return;
+    }
+
     console.log("Deleting goal with CNPJ:", cnpj);
-
-    deleteGoal(goalId)
+    deleteGoal(cnpj, goalId)
       .then(() => {
-        console.log(`Goal with CNPJ ${cnpj} deleted successfully.`);
+        console.log(`Goal with goalId ${goalId} deleted successfully.`);
         getAllGoals();
       })
       .catch((error) => {
         console.error("Error deleting goal:", error);
       });
   }
-
-
-  // function removeBranch(cnpj: string) {
-  //   console.log("Deleting branch with CNPJ:", cnpj);
-
-  //   deleteBranch(cnpj)
-  //     .then(() => {
-  //       console.log(`Branch with CNPJ ${cnpj} deleted successfully.`);
-  //       getAllBranches();
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error deleting branch:", error);
-  //     });
-  // }
-
-
-
-
 
   return (
     <div>
@@ -112,7 +100,7 @@ const ListGoals: React.FC = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-            <TableCell variant="head">
+              <TableCell variant="head">
                 <Typography variant="body1" style={{ fontWeight: "bold" }}>
                   ID META
                 </Typography>
@@ -165,23 +153,19 @@ const ListGoals: React.FC = () => {
                         variant="contained"
                         color="error"
                         startIcon={<Delete />}
-                        onClick={() => removeGoal(goal.cnpj)} // Corrigido nome da função
+                        onClick={() => {
+                          if (
+                            window.confirm(
+                              "Tem certeza de que deseja excluir esta meta?"
+                            )
+                          ) {
+                            removeGoal(goal.goalId);
+                          }
+                        }}
                       >
                         Apagar
                       </Button>
                     </Stack>
-                    {/* <IconButton
-                      aria-label="view"
-                      onClick={() => {
-                        console.log(
-                          "Navigating to view page with CNPJ:",
-                          goal.cnpj
-                        ); // Debug log
-                        navigate(`/view-goal/${goal.cnpj}`);
-                      }}
-                    >
-                      <Visibility />
-                    </IconButton> */}
                   </Stack>
                 </TableCell>
               </TableRow>

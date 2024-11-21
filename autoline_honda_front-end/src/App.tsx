@@ -68,9 +68,9 @@ const Layout = () => (
         <Route path="/sales/:cnpj/:saleId/edit" element={<EditSale/>} />
 
         {/* Cars */}
-        <Route path="/cars/:cnpj" element={<ListCars />} />
-        <Route path="/cars/:cnpj/add" element={<AddCar />} />
-        <Route path="/cars/:cnpj/:carChassis/edit" element={<EditCar />} />
+        <Route path="/cars" element={<ListCars />} />
+        <Route path="/add-cars" element={<AddCar />} />
+        {/* <Route path="/cars/:carChassis/edit" element={<EditCar />} /> */}
 
         {/* Customers */}
         <Route path="/customers/:cnpj" element={<ListCustomers />} />
@@ -92,3 +92,8 @@ function App() {
 }
 
 export default App;
+
+
+
+
+

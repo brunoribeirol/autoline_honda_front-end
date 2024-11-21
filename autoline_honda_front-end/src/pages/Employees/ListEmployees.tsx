@@ -33,6 +33,10 @@ const ListEmployees: React.FC = () => {
   }, [cnpj]);
 
   function getAllEmployees() {
+    if (!cnpj) {
+      console.error("CNPJ está undefined, verifique a rota ou os parâmetros.");
+      return;
+    }
     getEmployees(cnpj)
       .then((response) => {
         if (response && response.data) {
@@ -51,7 +55,6 @@ const ListEmployees: React.FC = () => {
         console.error("Error fetching employees:", error);
       });
   }
-
 
   function removeEmployee(cpf: string) {
     if (!cnpj) {
@@ -146,7 +149,7 @@ const ListEmployees: React.FC = () => {
                       variant="outlined"
                       startIcon={<Edit />}
                       onClick={() =>
-                        navigate(`/employees/${employee.cnpj}/${employee.cpf}/edit`)
+                        navigate(`/employees/${cnpj}/${employee.cpf}/edit`)
                       }
                     >
                       Editar
@@ -162,8 +165,6 @@ const ListEmployees: React.FC = () => {
                           )
                         ) {
                           removeEmployee(employee.cpf);
-                          //navigate com cpf na url
-                          //redireciona pra a lista
                         }
                       }}
                     >

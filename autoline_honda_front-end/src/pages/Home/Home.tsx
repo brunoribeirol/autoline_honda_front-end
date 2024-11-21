@@ -28,6 +28,12 @@ const HomePage: React.FC = () => {
           >
             Gerenciar Filiais
           </button>
+          <button
+            className="btn btn-secondary"
+            onClick={() => navigate("/cars")}
+          >
+            Gerenciar Carros
+          </button>
         </div>
       </div>
 

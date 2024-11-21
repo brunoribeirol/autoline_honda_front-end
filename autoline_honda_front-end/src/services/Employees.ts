@@ -34,9 +34,10 @@ export const getEmployees = (cnpj: string) =>
       )
     );
 
-export const getEmployee = (cpf: string) =>
+export const getEmployee = (cnpj: string, cpf: string) =>
   axios
-    .get(REST_API_BASE_URL(cpf))
+    .get(`${REST_API_BASE_URL(cnpj)}/${cpf}`)
+    //.get(REST_API_BASE_URL(cpf))
     //.get(`${REST_API_BASE_URL}/${cpf}`)
     .catch((error) =>
       console.error(
@@ -46,11 +47,9 @@ export const getEmployee = (cpf: string) =>
     );
 
 export const deleteEmployee = (cnpj: string, cpf: string) =>
-//export const deleteEmployee = (cpf: string) =>
   axios
     //.delete(REST_API_BASE_URL(cpf)) //NAO USAR ` $ {}
     .delete(`${REST_API_BASE_URL(cnpj)}/${cpf}`) // Usa o CNPJ na base
-    //.delete(`${REST_API_BASE_URL}/${cpf}`)
     .catch((error) =>
       console.error(
             "Error deleting employee:",
@@ -60,35 +59,10 @@ export const deleteEmployee = (cnpj: string, cpf: string) =>
 
     export const updateEmployee = (cnpj: string, cpf: string, updatedData: Partial<Employee>) =>
       axios
-        .put(`${REST_API_BASE_URL}/${cnpj}/${cpf}`, updatedData) // Inclui CNPJ e CPF na URL
+        .put(`${REST_API_BASE_URL(cnpj)}/${cpf}/edit`, updatedData) // Inclui CNPJ e CPF na URL
         .catch((error) =>
           console.error(
             "Error updating employee:",
             error.response?.data || error.message
           )
         );
-
-// export const updateEmployee = (
-//   cpf: string
-//   //updatedData: { goalDate: string; carQuantity: number }
-// ) =>
-//   axios
-//     .put(`${REST_API_BASE_URL}/${cpf}`)
-//     //.put(`${REST_API_BASE_URL}/${cpf}`, updatedData)
-//     .catch((error) =>
-//       console.error(
-//         "Error updating eemploye:",
-//         error.response?.data || error.message
-//       )
-//     );
-
-// export const deleteEmployee = (cpf: string) =>
-//   axios
-//     .delete(`${REST_API_BASE_URL}/${cpf}`)
-//     .catch((error) =>
-//       console.error(
-//         "Error deleting goal:",
-//         error.response?.data || error.message
-//       )
-//     );
-

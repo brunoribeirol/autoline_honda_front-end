@@ -6,17 +6,25 @@ import { Button } from "@mui/material";
 const EditEmployee: React.FC = () => {
   const { cnpj, cpf } = useParams<{ cnpj: string; cpf: string }>(); // Recebe cnpj e cpf da URL
   const [employee, setEmployee] = useState({
+    cnpj: "",
     cpf: "",
     name: "",
     salary: 0,
     position: "",
     supervisorCpf: "",
   });
+
+  const [errors, setErrors] = useState({
+    name: false,
+    salary: false,
+    position: false,
+  });
+
   const navigate = useNavigate();
 
   useEffect(() => {
     if (cnpj && cpf) {
-      getEmployee(cpf) // Busca o funcionário com base no CPF
+      getEmployee(cnpj, cpf) // Busca o funcionário com base no CPF
         .then((response) => {
           setEmployee(response.data);
         })
@@ -29,10 +37,24 @@ const EditEmployee: React.FC = () => {
 
   const handleUpdate = (e: React.FormEvent) => {
     e.preventDefault();
-    updateEmployee(employee.cpf, employee) // Atualiza os dados
+
+        // Simples validação
+        const newErrors = {
+          name: !employee.name.trim(),
+          salary: employee.salary <= 0,
+          position: !employee.position.trim(),
+        };
+        setErrors(newErrors);
+    
+        if (Object.values(newErrors).some((error) => error)) {
+          alert("Por favor, preencha todos os campos obrigatórios.");
+          return;
+        }
+
+    updateEmployee(employee.cnpj, employee.cpf, employee) // Atualiza os dados
       .then(() => {
         console.log("Funcionário atualizado com sucesso!");
-        navigate(`/employees/${cnpj}`); // Retorna à lista de funcionários
+        navigate(`/employees/${cnpj}`);// Retorna à lista de funcionários
       })
       .catch((error) => {
         console.error("Erro ao atualizar funcionário:", error);
@@ -41,44 +63,94 @@ const EditEmployee: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2>Editar Funcionário</h2>
+    <div className="container">
+      <h2 className="text-center">Editar Funcionário</h2>
       <form onSubmit={handleUpdate}>
-        <div>
-          <label>Nome:</label>
+        {/* CPF */}
+        <div className="form-group mb-3">
+          <label htmlFor="cpf">CPF:</label>
           <input
             type="text"
+            id="cpf"
+            value={employee.cpf || ""}
+            disabled
+            className="form-control"
+          />
+        </div>
+        {/* Nome */}
+        <div className="form-group mb-3">
+          <label htmlFor="name">Nome:</label>
+          <input
+            type="text"
+            id="name"
             value={employee.name}
             onChange={(e) =>
               setEmployee((prev) => ({ ...prev, name: e.target.value }))
             }
+            className={`form-control ${errors.name ? "is-invalid" : ""}`}
           />
+          {errors.name && (
+            <div className="invalid-feedback">O nome é obrigatório.</div>
+          )}
         </div>
-        <div>
-          <label>Salário:</label>
+        {/* Salário */}
+        <div className="form-group mb-3">
+          <label htmlFor="salary">Salário:</label>
           <input
             type="number"
+            id="salary"
             value={employee.salary}
             onChange={(e) =>
-              setEmployee((prev) => ({ ...prev, salary: Number(e.target.value) }))
+              setEmployee((prev) => ({
+                ...prev,
+                salary: Number(e.target.value),
+              }))
             }
+            className={`form-control ${errors.salary ? "is-invalid" : ""}`}
           />
+          {errors.salary && (
+            <div className="invalid-feedback">
+              O salário deve ser maior que zero.
+            </div>
+          )}
         </div>
-        <div>
-          <label>Cargo:</label>
+        {/* Cargo */}
+        <div className="form-group mb-3">
+          <label htmlFor="position">Cargo:</label>
           <select
+            id="position"
             value={employee.position}
             onChange={(e) =>
               setEmployee((prev) => ({ ...prev, position: e.target.value }))
             }
+            className={`form-control ${errors.position ? "is-invalid" : ""}`}
           >
+            <option value="">Selecione um cargo</option>
             <option value="Gerente">Gerente</option>
             <option value="Vendedor">Vendedor</option>
           </select>
+          {errors.position && (
+            <div className="invalid-feedback">O cargo é obrigatório.</div>
+          )}
         </div>
-        <Button type="submit" variant="contained">
-          Salvar
-        </Button>
+        {/* Botões */}
+        <div className="d-flex justify-content-end">
+          <Button
+            type="submit"
+            variant="contained"
+            className="btn btn-primary me-2"
+          >
+            Atualizar
+          </Button>
+          <Button
+            type="button"
+            variant="contained"
+            color="secondary"
+            onClick={() => navigate(`/employees/${employee.cnpj}`)}
+          >
+            Cancelar
+          </Button>
+        </div>
       </form>
     </div>
   );
