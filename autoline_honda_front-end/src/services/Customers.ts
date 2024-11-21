@@ -1,8 +1,6 @@
 import axios from "axios";
 
-//const REST_API_BASE_URL = "http://localhost:8080/customers/:cnpj";
-const REST_API_BASE_URL = (cnpj: string) =>
-  `http://localhost:8080/customers/${cnpj}`;
+const REST_API_BASE_URL = "http://localhost:8080/customers";
 
 export interface Customer {
   cpf: string;
@@ -15,12 +13,12 @@ export interface Customer {
   zipCode: string;
   street: string;
   city: string;
-  phoneNumber: string
+  phones: { phoneNumber: string }[];
 }
 
 export const createCustomer = (customer: Customer) =>
   axios
-    .post(`${REST_API_BASE_URL(customer.cpf)}/add`, customer)
+    .post(`${REST_API_BASE_URL}/add`, customer)
     .catch((error) =>
       console.error(
         "Error creating goal:",
@@ -28,9 +26,9 @@ export const createCustomer = (customer: Customer) =>
       )
     );
 
-export const getCustomers = (cpf: string) =>
+export const getCustomers = () =>
   axios
-    .get(REST_API_BASE_URL(cpf))
+    .get(REST_API_BASE_URL)
     .catch((error) =>
       console.error(
         "Error fetching goals:",
@@ -38,35 +36,17 @@ export const getCustomers = (cpf: string) =>
       )
     );
 
-// export const getGoal = (goalId: number) =>
-//   axios
-//     .get(`${REST_API_BASE_URL}/${goalId}`)
-//     .catch((error) =>
-//       console.error(
-//         "Error fetching goal:",
-//         error.response?.data || error.message
-//       )
-//     );
+    export const getCustomer = (cpf: string) => 
+      axios.get(`${REST_API_BASE_URL}/${cpf}`)
+        .catch((error) => console.error("Error fetching car:", error.response?.data || error.message));
+    
+    
+    export const deleteCar = (cpf: string) => 
+      axios.delete(`${REST_API_BASE_URL}/${cpf}`)
+        .catch((error) => console.error("Error deleting car:", error.response?.data || error.message));
 
-// export const updateGoal = (
-//   goalId: number,
-//   updatedData: { goalDate: Date; carQuantity: number }
-// ) =>
-//   axios
-//     .put(`${REST_API_BASE_URL}/${goalId}`, updatedData)
-//     .catch((error) =>
-//       console.error(
-//         "Error updating goal:",
-//         error.response?.data || error.message
-//       )
-//     );
-
-// export const deleteGoal = (goalId: number) =>
-//   axios
-//     .delete(`${REST_API_BASE_URL}/${goalId}`)
-//     .catch((error) =>
-//       console.error(
-//         "Error deleting goal:",
-//         error.response?.data || error.message
-//       )
-//     );
+    export const updateCustomer = (cpf: string, updatedData: Partial<Customer>) => 
+      axios.put(`${REST_API_BASE_URL}/${cpf}/edit`, updatedData)
+        .catch((error) => console.error("Error updating car with specification:", error.response?.data || error.message));
+        
+    

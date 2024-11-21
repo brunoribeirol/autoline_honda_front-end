@@ -17,12 +17,6 @@ export interface Dashboard {
     mostSoldCar: any
     salesInDateRange: SalesInDateRange[]
   }
-  
-  // clientsWithTradeInCredit: ClientsWithTradeInCredit[]
-  // employeeSummary: EmployeeSummary
-  // branchGoals: BranchGoal[]
-  // mostSoldCar: any
-  // salesInDateRange: SalesInDateRange[]
 
   export interface SalesByEmployee {
     employeeName: string

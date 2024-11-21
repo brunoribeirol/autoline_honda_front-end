@@ -142,10 +142,34 @@ const ListCars: React.FC = () => {
               </TableCell>
               <TableCell>
                 <Typography variant="body1" style={{ fontWeight: "bold" }}>
-                  QUILOMETRAGEM
+                  KM
                 </Typography>
               </TableCell>
-
+              <TableCell>
+              <Typography variant="body1" style={{ fontWeight: "bold" }}>
+                  MOTOR
+                </Typography>
+                </TableCell>
+              <TableCell>
+              <Typography variant="body1" style={{ fontWeight: "bold" }}>
+                  COMBUSTÍVEL
+                </Typography>
+              </TableCell>
+              <TableCell>
+              <Typography variant="body1" style={{ fontWeight: "bold" }}>
+                  COR
+                </Typography>
+              </TableCell>
+              <TableCell>
+              <Typography variant="body1" style={{ fontWeight: "bold" }}>
+                  TAMANHO RODA
+                </Typography>
+              </TableCell>
+              <TableCell>
+              <Typography variant="body1" style={{ fontWeight: "bold" }}>
+                  CHASSI
+                </Typography>
+              </TableCell>
               <TableCell align="center">
                 <Typography variant="body1" style={{ fontWeight: "bold" }}>
                   AÇÕES
@@ -164,6 +188,11 @@ const ListCars: React.FC = () => {
                 <TableCell>{car.year}</TableCell>
                 <TableCell>{car.specification?.version}</TableCell>
                 <TableCell>{car.mileage}</TableCell>
+                <TableCell>{car.engine}</TableCell>
+                <TableCell>{car.fuelType}</TableCell>
+                <TableCell>{car.color}</TableCell>
+                <TableCell>{car.wheelSize}</TableCell>
+                <TableCell>{car.chassis}</TableCell>
                 <TableCell align="right">
                   <Stack direction="row" spacing={2} justifyContent="center">
                     <Button
@@ -182,12 +211,6 @@ const ListCars: React.FC = () => {
                     >
                       Apagar
                     </Button>
-                    <IconButton
-                      aria-label="view"
-                      onClick={() => navigate(`/view-car/${car.chassis}`)}
-                    >
-                      <Visibility />
-                    </IconButton>
                   </Stack>
                 </TableCell>
               </TableRow>

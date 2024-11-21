@@ -56,9 +56,6 @@ const DetailsBranch: React.FC = () => {
         >
           {branchName}
         </Typography>
-        <Typography variant="h6" sx={{ color: "#4A4A4A" }}>
-          Explore the branch functionalities below.
-        </Typography>
       </Box>
 
       <Stack direction="column"> 

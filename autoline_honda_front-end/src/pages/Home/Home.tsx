@@ -36,7 +36,7 @@ const HomePage: React.FC = () => {
           </button>
           <button
             className="btn btn-success"
-            onClick={() => navigate("/clients")}
+            onClick={() => navigate("/customers")}
           >
             Gerenciar Clientes
           </button>

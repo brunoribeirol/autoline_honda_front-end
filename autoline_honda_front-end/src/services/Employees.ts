@@ -26,7 +26,6 @@ export const createEmployee = (employee: Employee) =>
 export const getEmployees = (cnpj: string) =>
   axios
     .get(REST_API_BASE_URL(cnpj))
-    //.get(`${REST_API_BASE_URL}/${cnpj}`)
     .catch((error) =>
       console.error(
         "Error fetching employees:",
@@ -35,16 +34,8 @@ export const getEmployees = (cnpj: string) =>
     );
 
 export const getEmployee = (cnpj: string, cpf: string) =>
-  axios
-    .get(`${REST_API_BASE_URL(cnpj)}/${cpf}`)
-    //.get(REST_API_BASE_URL(cpf))
-    //.get(`${REST_API_BASE_URL}/${cpf}`)
-    .catch((error) =>
-      console.error(
-        "Error fetching employee:",
-        error.response?.data || error.message
-      )
-    );
+  axios.get(`${REST_API_BASE_URL(cnpj)}/${cpf}`)
+    .catch((error) => console.error("Error fetching employee:", error.response?.data || error.message));
 
 export const deleteEmployee = (cnpj: string, cpf: string) =>
   axios
